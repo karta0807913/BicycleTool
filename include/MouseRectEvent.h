@@ -1,7 +1,6 @@
 #pragma once
 #include "graphicscene.h"
 #include "socketgraphicsitem.h"
-#include "GraphicsData.h"
 
 template<typename Scene>
 class MouseRectEvent {
@@ -73,7 +72,7 @@ public:
 
 	void stop() {
 		if (obj != nullptr) {
-			scene->deleteItem(obj);
+			this->scene->deleteItem(obj);
 		}
 	}
 

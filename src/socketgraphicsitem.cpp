@@ -1,5 +1,5 @@
 #include "socketgraphicsitem.h"
-#include "GraphicsData.h"
+#include "DataType.pb.h"
 
 template<typename DataType>
 SocketGraphicsItem<DataType>::SocketGraphicsItem() :
@@ -19,9 +19,15 @@ void SocketGraphicsItem<DataType>::setList(QList<QString> &classList)
 }
 
 template<typename DataType>
-const DataType & SocketGraphicsItem<DataType>::getDetail()
+const DataType& SocketGraphicsItem<DataType>::getDetail()
 {
 	return data;
+}
+
+template<typename DataType>
+void SocketGraphicsItem<DataType>::setDetail(const DataType& data)
+{
+    this->data = data;
 }
 
 template<typename DataType>
@@ -55,4 +61,4 @@ SocketGraphicsItem<DataType>::~SocketGraphicsItem()
 //    QGraphicsRectItem::setPos(x, y);
 //}
 
-template class SocketGraphicsItem<GraphicsData>;
+template class SocketGraphicsItem<DataType::RectData>;

@@ -1,0 +1,17 @@
+syntax = "proto2";
+package DataType;
+message GlobalData {
+    repeated RectData rect = 1;
+    required int32 screen_w = 2;
+    required int32 screen_h = 3;
+}
+
+message RectData {
+    required int32 x = 1;
+    required int32 y = 2;
+    required int32 w = 3;
+    required int32 h = 4;
+
+    required int32 dx = 5;
+    required int32 dy = 6;
+}

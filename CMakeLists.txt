@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD 11)
 
 project(BicycleTool)
 
+include_directories("./include/")
+
 # include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 find_package(OpenCV REQUIRED)
@@ -16,36 +18,43 @@ endif()
 
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Widgets REQUIRED)
+find_package(Protobuf REQUIRED)
 
 set(SOURCE_FILE
-    main.cpp
-    mainwindow.cpp
-    graphicscene.cpp
-    graphicwidget.cpp
-    socketgraphicsitem.cpp
-    convertimage.cpp
-	GraphicsData.cpp
-	GraphicsItemWithVector.cpp
+    src/main.cpp
+    src/mainwindow.cpp
+    src/graphicscene.cpp
+    src/graphicwidget.cpp
+    src/socketgraphicsitem.cpp
+    src/convertimage.cpp
+	src/GraphicsItemWithVector.cpp
   )
 
 set(INCLUDE_FILE
-    mainwindow.h
-    graphicscene.h
-    graphicwidget.h
-    socketgraphicsitem.h
-    convertimage.h
-	MouseRectEvent.h
-	GraphicsData.h
-	GraphicsItemWithVector.h
+    include/mainwindow.h
+    include/graphicscene.h
+    include/graphicwidget.h
+    include/socketgraphicsitem.h
+    include/convertimage.h
+	include/MouseRectEvent.h
+	include/GraphicsItemWithVector.h
   )
 
+set(PROTO
+    include/DataType.proto
+    )
+
 set(QT_FORMS
-    mainwindow.ui
-    graphicwidget.ui
+    src/mainwindow.ui
+    src/graphicwidget.ui
   )
 
 include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(${PROTOBUF_INCLUDE_DIR})
+
+if(UNIX)
+    protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS "${PROTO}")
+endif(UNIX)
 
 add_executable(Drawings ${SOURCE_FILE} ${INCLUDE_FILE} ${QT_FORMS} ${RESOURCES} ${PROTO_HDRS} ${PROTO_SRCS})
 target_link_libraries(Drawings ${PROTOBUF_LIBRARIES} ${OpenCV_LIBS}  Qt5::Core Qt5::Widgets)

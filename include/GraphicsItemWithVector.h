@@ -1,15 +1,17 @@
 #pragma once
 #include "socketgraphicsitem.h"
 #include "graphicscene.h"
-#include "GraphicsData.h"
+#include "DataType.pb.h"
 
 class GraphicsItemWithVector :
-	public SocketGraphicsItem<GraphicsData>
+	public SocketGraphicsItem<DataType::RectData>
 {
 protected:
 	GraphicsItemWithVector();
 public:
 	~GraphicsItemWithVector();
+    const DataType::RectData& getDetail() override;
+    void setDetail(const DataType::RectData& data) override;
 	class CreateItemEvent;
 private:
 	QGraphicsLineItem vector;
@@ -23,6 +25,7 @@ public:
 		CreateVector
 	};
 	CreateItemEvent(GraphicScene *scene);
+    void createItemFromRectData(const DataType::RectData& data);
 	void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 	void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;

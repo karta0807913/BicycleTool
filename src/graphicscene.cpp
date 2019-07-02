@@ -71,7 +71,7 @@ void GraphicScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void GraphicScene::deleteAllItems()
 {
 	foreach(QGraphicsItem *item, items()) {
-		if (SocketGraphicsItem<GraphicsData>::Type == item->type()) {
+		if (SocketGraphicsItem<DataType::RectData>::Type == item->type()) {
 			delete item;
 		}
 	}
@@ -82,7 +82,7 @@ void GraphicScene::deleteAllItems()
 void GraphicScene::setSelectable(bool state)
 {
     foreach (QGraphicsItem *item, items()) {
-        if(item->type() == SocketGraphicsItem<GraphicsData>::Type){
+        if(item->type() == SocketGraphicsItem<DataType::RectData>::Type){
             item->setFlag(QGraphicsItem::ItemIsSelectable, state);
             item->setFlag(QGraphicsItem::ItemIsMovable, state);
         }
@@ -100,7 +100,7 @@ void GraphicScene::addItem(QGraphicsItem *item)
     QGraphicsScene::addItem(item);
 }
 
-void GraphicScene::addItem(SocketGraphicsItem<GraphicsData> *item)
+void GraphicScene::addItem(SocketGraphicsItem<DataType::RectData> *item)
 {
     ++graphicItemNum;
     QGraphicsScene::addItem(item);

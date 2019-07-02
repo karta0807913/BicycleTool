@@ -14,6 +14,7 @@
 #include "graphicscene.h"
 
 #include "MouseRectEvent.h"
+#include "DataType.pb.h"
 
 namespace Ui {
 class GraphicWidget;
@@ -28,6 +29,7 @@ public:
     void setGeometry(const QRect &rect);
     void setImage(QString path);
     void setImage(cv::Mat img);
+    void addItem(SocketGraphicsItem<DataType::RectData> *item);
     void addRectItem(float x1, float y1, float x2, float y2, QColor color, QList<QString> &classList);
     void setSelectMode(MouseRectEvent<GraphicScene> *functor);
     void setSelectable(bool state);
@@ -42,7 +44,7 @@ public:
     GraphicScene *getMainScene();
     cv::Mat &getOriginImage();
 
-    void changeRectItemColor(SocketGraphicsItem<GraphicsData> *rectItem, QColor color);
+    void changeRectItemColor(SocketGraphicsItem<DataType::RectData> *rectItem, QColor color);
     void mouseReleaseEvent(QMouseEvent *event);
 
     ~GraphicWidget();

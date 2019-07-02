@@ -5,6 +5,26 @@ GraphicsItemWithVector::GraphicsItemWithVector()
 	vector.setParentItem(this);
 }
 
+const DataType::RectData& GraphicsItemWithVector::getDetail() {
+    const QRectF &rect = this->rect();
+    this->data.set_x(rect.x());
+    this->data.set_y(rect.y());
+    this->data.set_w(rect.width());
+    this->data.set_h(rect.height());
+    const QLineF &line = this->vector.line();
+    this->data.set_dx(line.x2() - line.x1());
+    this->data.set_dy(line.y2() - line.y1());
+    return this->data;
+}
+
+void GraphicsItemWithVector::setDetail(const DataType::RectData& data) {
+    this->data = data;
+    int x = data.x(), y = data.y(), w = data.w(), h = data.h();
+    this->setRect(x, y, w, h);
+    int xm = x + w / 2;
+    int ym = y + h / 2;
+    this->vector.setLine(xm, ym, xm + data.dx(), ym + data.dy());
+}
 
 GraphicsItemWithVector::~GraphicsItemWithVector()
 {
@@ -14,6 +34,21 @@ GraphicsItemWithVector::CreateItemEvent::CreateItemEvent(GraphicScene * scene) :
 {
 	this->step = NotInit;
 	this->item = nullptr;
+}
+
+void GraphicsItemWithVector::CreateItemEvent::createItemFromRectData(const DataType::RectData& data) {
+    GraphicsItemWithVector *item = new GraphicsItemWithVector();
+    color = this->scene->getDrawColor();
+    color.setAlpha(25);
+    item->setBrush(color);
+    color.setAlpha(255);
+    item->setPen(QPen(color, 1));
+    item->setDetail(data);
+
+    color.setAlpha(255);
+    item->vector.setPen(color);
+
+    this->scene->addItem(item);
 }
 
 void GraphicsItemWithVector::CreateItemEvent::mousePressEvent(QGraphicsSceneMouseEvent * event)

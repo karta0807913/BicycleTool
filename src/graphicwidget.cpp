@@ -1,6 +1,6 @@
 #include "graphicwidget.h"
 #include "ui_graphicwidget.h"
-#include "GraphicsData.h"
+#include "DataType.pb.h"
 
 GraphicWidget::GraphicWidget(QWidget *parent) :
     QWidget(parent),
@@ -38,11 +38,15 @@ void GraphicWidget::setImage(cv::Mat img)
     scene->setImage(img,  imgWidth, imgHeight);
 }
 
+void GraphicWidget::addItem(SocketGraphicsItem<DataType::RectData> *item) {
+    scene->addItem(item);
+}
+
 void GraphicWidget::addRectItem(float x1, float y1, float x2, float y2, QColor color, QList<QString> &classList)
 {
     if(x1 >= x2 || y1 >= y2 || x1 < 0 || y1 < 0)
         return;
-    SocketGraphicsItem<GraphicsData> *rectItem = new SocketGraphicsItem<GraphicsData>();
+    SocketGraphicsItem<DataType::RectData> *rectItem = new SocketGraphicsItem<DataType::RectData>();
     color.setAlpha(50);
     rectItem->setBrush(color);
     color.setAlpha(255);
@@ -61,7 +65,7 @@ void GraphicWidget::addRectItem(float x1, float y1, float x2, float y2, QColor c
     emit itemNumberChanged(scene->getGraphicItemsNum());
 }
 
-void GraphicWidget::changeRectItemColor(SocketGraphicsItem<GraphicsData> *rectItem, QColor color)
+void GraphicWidget::changeRectItemColor(SocketGraphicsItem<DataType::RectData> *rectItem, QColor color)
 {
     color.setAlpha(50);
     rectItem->setBrush(color);

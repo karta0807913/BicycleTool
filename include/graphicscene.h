@@ -21,6 +21,7 @@
 #include <QObject>
 
 #include "MouseRectEvent.h"
+#include "DataType.pb.h"
 
 template<typename W, typename H>
 struct Size
@@ -49,7 +50,7 @@ public:
     void setDeleteHotKey(Qt::Key key);
     cv::Mat &getOriginImage();
     void addItem(QGraphicsItem *item);
-	void addItem(SocketGraphicsItem<GraphicsData> *item);
+	void addItem(SocketGraphicsItem<DataType::RectData> *item);
     bool deleteItem(QGraphicsItem *item);
     QList<QString> getPlotClassesList();
     int getGraphicItemsNum();

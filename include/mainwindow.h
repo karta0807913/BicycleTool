@@ -4,8 +4,8 @@
 #include <QMainWindow>
 
 #include "graphicscene.h"
-#include "GraphicsData.h"
 #include "GraphicsItemWithVector.h"
+#include "DataType.pb.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,8 +22,8 @@ public:
 private:
     Ui::MainWindow *ui;
 
-	CreateSocketGraphicsItem<GraphicScene, GraphicsData> * create;
-	ResizeGraphicsItem<GraphicScene, GraphicsData> *resize;
+	CreateSocketGraphicsItem<GraphicScene, DataType::RectData> * create;
+	ResizeGraphicsItem<GraphicScene, DataType::RectData> *resize;
 	MouseRectEvent<GraphicScene> *move;
 	GraphicsItemWithVector::CreateItemEvent *createGV;
 
@@ -31,6 +31,9 @@ public slots:
 	void createMode();
 	void moveMode();
 	void changeImage();
+    void saveSetting();
+    void loadSetting();
+    void clear();
 };
 
 #endif // MAINWINDOW_H
